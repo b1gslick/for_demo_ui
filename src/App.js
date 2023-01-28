@@ -8,30 +8,31 @@ import Header from "./components/header/Header";
 import Trailer from "./components/trailer/Trailer";
 import Reviews from "./components/reviews/Reviews";
 import NotFound from "./components/notFound/NotFound";
-import winston from "winston";
-import LokiTransport from "winston-loki";
+// import winston from "winston";
+// import LokiTransport from "winston-loki";
+//
 
 function App() {
   const [movies, setMovies] = useState();
   const [movie, setMovie] = useState();
   const [reviews, setReviews] = useState([]);
-  const logger = winston.createLogger({
-    transports: [
-      new LokiTransport({
-        url: "http://localhost:3100/loki/api/v1/push",
-        labels: { app: "frontEnd" },
-      }),
-    ],
-  });
+  // const logger = winston.createLogger({
+  //   transports: [
+  //     new LokiTransport({
+  //       url: "http://localhost:3100/loki/api/v1/push",
+  //       labels: { app: "frontEnd" },
+  //     }),
+  //   ],
+  // });
 
   const getMovies = async () => {
     try {
       const response = await api.get("/api/v1/movies");
 
-      logger.info(`Response is correct with status ${response.status}`);
+      // logger.info(`Response is correct with status ${response.status}`);
       setMovies(response.data);
     } catch (err) {
-      logger.error(`Response end with error: ${err}`);
+      // logger.error(`Response end with error: ${err}`);
       console.log(err);
     }
   };
@@ -41,13 +42,13 @@ function App() {
       const response = await api.get(`/api/v1/movies/${movieId}`);
 
       const singleMovie = response.data;
-      logger.info(`Response is correct with status ${response.status}`);
+      // logger.info(`Response is correct with status ${response.status}`);
 
       setMovie(singleMovie);
 
       setReviews(singleMovie.reviews);
     } catch (error) {
-      logger.error(`Response end with error: ${err}`);
+      // logger.error(`Response end with error: ${err}`);
       console.error(error);
     }
   };
